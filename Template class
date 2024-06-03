@@ -88,5 +88,9 @@ int main() {
 	aInt.add(2);
 	aInt.add(3);
 	std::cout<<"Int array: "<<aInt.toString()<<std::endl;
+	std::cout<<"Array size: "<<aInt.getSize()<<std::endl;
+	aInt.delItem(1);
+	std::cout<<"Int array: "<<aInt.toString()<<std::endl;
+	std::cout<<"Array size: "<<aInt.getSize()<<std::endl;
 	return 0;
 }
