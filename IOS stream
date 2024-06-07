@@ -1,0 +1,27 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+	//changing field character
+	cout.fill('_');
+	
+	//changing width
+	cout<<"Current field width after change: ";
+	cout.width(3);
+	cout<< cout.width() << endl;
+	cout.width(3);
+	cout<<1<<2<<3<<endl;
+	
+	//modify adjustfield
+	cout.setf(ios::left, ios::adjustfield);
+	cout.width(3);
+	cout<<1<<2<<3<<endl;
+	
+	//changing width with "setw" + modifying adjustfield "internal"
+	cout.setf(ios::internal, ios::adjustfield);
+	cout<<1<<setw(5)<<2<<setw(5)<<3<<endl;
+	
+	return 0;
+}
