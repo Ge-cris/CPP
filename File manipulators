@@ -1,0 +1,57 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+using namespace std;
+template <class T>
+std::string getStatus(const T & stream, char *fileName) {
+    ostringstream s;
+    if (stream.is_open())
+    {
+        s << "File: "  << fileName <<" was successfully opened!\n";
+    }
+    else
+    {
+        s << "Failed to open file: " << fileName << endl;
+    }
+    return s.str();
+}
+
+std::string getFlags(const ios & stream) {
+    stringstream s;
+    s << boolalpha << "G:" << stream.good() << " E:" << stream.eof() << " F:" << stream.fail()
+            << " B:" << stream.bad();
+    return s.str();
+}
+
+int main() {
+    char badName[] = {"badfilename.txt"};
+    char goodName[] = {"inputfile03.txt"};
+    cout<< "Trying to open not existing file: " << badName << "\n";
+    ifstream Myfile(badName); //create an object file and assign string badName
+    cout << "Status: " << getStatus(Myfile, badName) << "Flags: " << getFlags(Myfile) << endl <<endl;
+    
+    cout << "Opening existing file for reading - using the same object, but with different file: " << goodName << "\n";
+    Myfile.open(goodName, ios_base::in);
+    cout << "Status: " << getStatus(Myfile, goodName) << "Flags: " << getFlags(Myfile) << endl <<endl;
+    
+    cout << "Reading contents of the file - there is an extra end of line character in the file :\n";
+    int v;
+    while(Myfile >> v) {
+        cout << v << ": flags: " << getFlags(Myfile) << endl;
+    }  
+    cout << "Status: " << getFlags(Myfile) << endl << endl;
+    Myfile.close();
+    
+    cout << "Reading contents of the file - different way:\n";
+    Myfile.open(goodName, ios_base::in);
+    while(Myfile.good()) {
+        Myfile >> v;
+        cout << v << ": flags: " << getFlags(Myfile) << endl;
+    }
+    Myfile.close();
+    cout << "Status: " << getFlags(Myfile) << endl;
+    Myfile.close();
+    return 0;
+}
