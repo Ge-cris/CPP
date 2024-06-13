@@ -1,0 +1,24 @@
+#include <sstream>
+#include <iostream>
+#include <string>
+
+int main() {
+    std::ostringstream oss;
+    std::string firstName = "John";
+    std::string lastName = "Doe";
+    int age = 30;
+    double height = 1.75;
+
+    // Building the string
+    oss << "Name: " << firstName << " " << lastName << "\n";
+    oss << "Age: " << age << "\n";
+    oss << "Height: " << height << " meters\n";
+
+    // Geting the resulting string
+    std::string result = oss.str();
+
+    // Displaying the result
+    std::cout << result << std::endl;
+
+    return 0;
+}
