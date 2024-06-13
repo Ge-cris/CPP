@@ -1,0 +1,57 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <iomanip>
+#include <list>
+
+using namespace std;
+template < class T > 
+std::string getStatus (const T & stream, char *fileName){
+  ostringstream s; //output stream
+  if (stream.is_open()){
+      s << "File: " << fileName << " was successfully opened!\n"; //adding data to the output stream
+  }else{
+      s << "Failed to open file: " << fileName << endl;
+  }
+  return s.str (); //converting the output stream into a string
+}
+
+std::string getFlags (const ios & stream){
+  stringstream s;
+  s << boolalpha << "G:" << stream.good() << " E:" << stream.eof() << " F:" << stream.fail() << " B:" << stream.bad();
+  return s.str();
+}
+
+int main (){
+  int t[]={1, 2, 3, 4, 5};
+  list <int> l(t, t+5);
+  char goodName[] = { "inputfile03.txt" };
+  fstream file;
+  
+  cout << "Opening file for reading: " << goodName << "\n";
+  file.open(goodName, ios_base::out);
+  cout << "Status: " << getStatus(file, goodName) << "Flags: " << getFlags(file) << endl;
+
+  list <int>::iterator it = l.begin();
+  for (; it != l.end(); ++it){
+      file << setw(3) << *it;
+  }
+  file.close();
+  
+  cout << "Reading contents of the file - line by line :\n";
+  file.open(goodName, ios_base::in);
+  string line;
+  while (getline(file, line)){
+      stringstream s(line);
+      int v;
+      while (s >> v){
+	  cout << left << setw (3) << v;
+	  }
+      cout << endl;
+  }
+  cout << "Status: " << getFlags(file) << endl;
+  file.close();
+
+  return 0;
+}
