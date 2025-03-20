@@ -1,0 +1,24 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+using namespace std;
+
+int main() {
+	char * first_name = (char*)calloc(10, sizeof(char));
+	strcpy(first_name, "cristian");
+	cout<< first_name <<endl;
+	free(first_name);
+	
+	char** last_name = new char*[10];
+	for(int i =0; i<10; i++)
+		last_name[i] = new char[10];
+		
+	strcpy(last_name[0], "george");
+	cout<<  last_name[0] <<endl;
+	
+	for(int i = 0; i<10; i++)
+		delete[] last_name[i];
+	delete[] last_name;
+	
+	return 0;
+}
